@@ -7,23 +7,34 @@ import '../services/book_api_service.dart';
 
 class BookProvider with ChangeNotifier {
   List<Book> listBook = [];
+  List<Book> searchBook = [];
   List<Book> _likedBooks = [];
   bool _isLoading = false;
   String _searchQuery = '';
 
   List<Book> get books => _searchQuery.isEmpty
       ? listBook
-      : listBook
-          .where((book) =>
-              book.title.toLowerCase().contains(_searchQuery.toLowerCase()))
-          .toList();
+      : searchBook;
 
   List<Book> get likedBooks => _likedBooks;
   bool get isLoading => _isLoading;
 
-  void setSearchQuery(String query) {
+  Future<void> setSearchQuery(String query) async {
     _searchQuery = query;
     notifyListeners();
+    if(query.isNotEmpty) {
+      _isLoading = true;
+      notifyListeners();
+
+      try {
+        searchBook = await BookApiService.fetchSearchBook(query);
+      } catch (e) {
+        listBook = [];
+      } finally {
+        _isLoading = false;
+        notifyListeners();
+      }
+    }
   }
 
   Future<void> fetchBooks() async {
@@ -39,6 +50,20 @@ class BookProvider with ChangeNotifier {
           .toList();
 
       listBook = await BookApiService.fetchBookList(1);
+    } catch (e) {
+      listBook = [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> fetchNextListBooks() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      listBook = await BookApiService.fetchBookList(2);
     } catch (e) {
       listBook = [];
     } finally {

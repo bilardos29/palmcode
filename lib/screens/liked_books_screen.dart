@@ -11,9 +11,6 @@ class LikedBooksScreen extends StatelessWidget {
     final likedBooks = Provider.of<BookProvider>(context).likedBooks;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Liked Books'),
-      ),
       body: likedBooks.isEmpty
           ? Center(child: Text('No liked books yet.'))
           : ListView.builder(

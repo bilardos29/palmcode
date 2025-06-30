@@ -11,24 +11,24 @@ class HomeScreen extends StatelessWidget {
     final provider = Provider.of<BookProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Book List'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.favorite),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => LikedBooksScreen()),
-              );
-            },
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Book List'),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.favorite),
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (_) => LikedBooksScreen()),
+      //         );
+      //       },
+      //     )
+      //   ],
+      // ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(12).copyWith(top: 56),
             child: TextField(
               decoration: InputDecoration(
                 labelText: 'Search books...',

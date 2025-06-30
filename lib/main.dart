@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palmcode/providers/book_provider.dart';
-import 'package:palmcode/screens/home_screen.dart';
+import 'package:palmcode/providers/dashboard_provider.dart';
+import 'package:palmcode/screens/dashboard_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -13,15 +14,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => BookProvider()..fetchBooks(),
-      child: MaterialApp(
-        title: 'Book List App',
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => BookProvider()..fetchBooks(),
         ),
-        home: HomeScreen(),
+        ChangeNotifierProvider(
+          create: (context) => DashboardProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Event',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          useMaterial3: true,
+        ),
+        home: DashboardScreen(),
       ),
     );
   }

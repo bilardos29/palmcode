@@ -11,20 +11,6 @@ class HomeScreen extends StatelessWidget {
     final provider = Provider.of<BookProvider>(context);
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Book List'),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.favorite),
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (_) => LikedBooksScreen()),
-      //         );
-      //       },
-      //     )
-      //   ],
-      // ),
       body: Column(
         children: [
           Padding(

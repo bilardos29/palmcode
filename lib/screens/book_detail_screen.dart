@@ -31,7 +31,7 @@ class BookDetailScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(book.title),
+            title: Text('Book Detail'),
             actions: [
               IconButton(
                 icon: Icon(
@@ -43,7 +43,7 @@ class BookDetailScreen extends StatelessWidget {
                 onPressed: () {
                   provider.toggleLike(book);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -51,15 +51,29 @@ class BookDetailScreen extends StatelessWidget {
             child: ListView(
               children: [
                 if (book.imageUrl != null)
-                  Image.network(book.imageUrl!),
+                  Image.network(book.imageUrl!, height: 200),
                 SizedBox(height: 12),
-                Text(book.author, style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
+                Text(
+                  book.title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'by ${book.author}',
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800),
+                ),
+                SizedBox(height: 12),
                 if (book.summary != null) Text(book.summary!),
-                SizedBox(height: 16),
-                Text('Subjects: ${book.subjects.join(', ')}'),
-                SizedBox(height: 8),
-                Text('Bookshelves: ${book.bookshelves.join(', ')}'),
+                SizedBox(height: 24),
+                Text(
+                  'Subjects: ${book.subjects.join(', ')}',
+                  style: TextStyle(fontSize: 10),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bookshelves: ${book.bookshelves.join(', ')}',
+                  style: TextStyle(fontSize: 10),
+                ),
               ],
             ),
           ),
